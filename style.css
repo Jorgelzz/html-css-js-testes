@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+    background-color: black;
+    color: aliceblue;
+    /* Deixe o body rolar normalmente caso tenha várias seções */
+    overflow-x: hidden;
+}
+
+/* Primeira seção (onde acontece a animação) */
+#squares {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row; /* Coloca as 4 colunas lado a lado */
+    overflow: hidden;
+}
+
+/* Cada uma das 4 colunas ocupa 25% da largura da tela */
+.column {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.half-top, .half-bottom {
+    width: 100%;
+    height: 50%;
+    background-color: red;
+}
+
+
+/* Próxima seção */
+section {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #111;
+}
