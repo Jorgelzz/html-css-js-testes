@@ -1,0 +1,214 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-cream-light: #fbf2d5;
+  --color-cream-dark: #edd4aa;
+  --color-peach: #fba966;
+  --color-orange: #d2440a;
+  --color-orange-dark: #c83b0a;
+  --color-dark: #0a0a0a;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: var(--color-cream-light);
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   CAMADA 1: Fundo — Página de destino (Portfólio)
+   - O conteúdo começa invisível (opacity: 0) para não vazar no 3D
+   - Torna-se visível ao fim da animação do flip
+───────────────────────────────────────────────────────────────── */
+.portfolio-bg {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color-cream-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.portfolio-content {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  user-select: none;
+}
+
+.portfolio-bg .portfolio-content {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.portfolio-bg .portfolio-content.visible {
+  opacity: 1;
+}
+
+.portfolio-name {
+  font-size: clamp(3.2rem, 8vw, 7.5rem);
+  font-weight: 900;
+  font-style: normal;
+  color: var(--color-orange);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin-bottom: 6px;
+}
+
+.portfolio-role {
+  background-color: var(--color-orange);
+  padding: 10px 38px 12px;
+  display: inline-block;
+  box-shadow: 0 4px 16px rgba(210, 68, 10, 0.2);
+}
+
+.portfolio-role span {
+  font-size: clamp(1.5rem, 3.4vw, 2.8rem);
+  font-weight: 900;
+  font-style: italic;
+  color: var(--color-dark);
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   CAMADA 2: O Overlay 3D em Colunas Verticais
+───────────────────────────────────────────────────────────────── */
+#app {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  perspective: 1400px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Wrapper de cada coluna */
+.col-wrapper {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  margin-right: -0.5px; /* Evita frestas de subpixel */
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   O CARD 3D
+   - Rotação 3D no eixo Y (rotateY)
+───────────────────────────────────────────────────────────────── */
+.card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* ─── Faces do Card ──────────────────────────────────────────────
+   - backface-visibility: hidden garante que a face oposta fique invisível
+   - overflow: hidden corta a fatia do conteúdo da Face B perfeitamente
+─────────────────────────────────────────────────────────────────*/
+.card-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+
+/* Face A: Visível inicialmente logo que a cortina abre (creme mais escuro) */
+.face-a {
+  background-color: var(--color-cream-dark);
+}
+
+/* Face B: Fica a 180deg; ao girar, revela a sua fatia horizontal exata do fundo */
+.face-b {
+  background-color: var(--color-cream-light);
+}
+
+/* O container que alinha a fatia do portfólio dentro de cada Face B */
+.portfolio-slice {
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   A CORTINA (Split Curtain: Superior sobe / Inferior desce)
+   - Metade superior: Pêssego (#fba966)
+   - Metade inferior: Laranja (#c83b0a)
+─────────────────────────────────────────────────────────────────*/
+.curtain {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.curtain-top {
+  width: 100%;
+  height: 50%;
+  background-color: var(--color-peach);
+  will-change: transform;
+}
+
+.curtain-bottom {
+  width: 100%;
+  height: 50%;
+  background-color: var(--color-orange-dark);
+  will-change: transform;
+}
+
+/* ─────────────────────────────────────────────────────────────────
+   BOTÃO REPLAY
+─────────────────────────────────────────────────────────────────*/
+.btn-replay {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: rgba(210, 68, 10, 0.12);
+  color: var(--color-orange);
+  border: 1px solid rgba(210, 68, 10, 0.4);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: all 0.2s ease;
+  pointer-events: auto;
+}
+
+.btn-replay:hover {
+  background: rgba(210, 68, 10, 0.22);
+  border-color: var(--color-orange);
+  transform: translateY(-1px);
+}

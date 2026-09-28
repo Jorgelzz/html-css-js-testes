@@ -20,7 +20,7 @@ function createColumns(totalColumns) {
     }
 }
 
-createColumns(15);
+createColumns(4);
 
 const topHalf = document.querySelector(".half-top");
 const bottomHalf = document.querySelector(".half-bottom");

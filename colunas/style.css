@@ -31,7 +31,11 @@ body {
 }
 
 
-/* Próxima seção */
+/* Próxima seção 
+    Bem útil se eu estiver tentando deixar cada seção separado com tamanhos da tela inteira
+    algo como slides
+
+*/ 
 section {
     width: 100vw;
     height: 100vh;

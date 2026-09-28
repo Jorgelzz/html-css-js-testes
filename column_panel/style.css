@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1a1a1a;
+    overflow: hidden;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    background-color: #1a1a1a;
+    display: flex;
+    perspective: 1000px;
+    overflow: hidden;
+}
+
+.coluna {
+    flex: 1;
+    height: 100%;
+    background-color: #3b82f6;
+    margin-right: -1px;
+    animation: virar 1.2s ease-in-out forwards;
+}
+
+@keyframes virar {
+    0% {
+        transform: scaleX(1.02) rotateY(0deg);
+        background-color: #3b82f6;
+    }
+    50% {
+        background-color: #3b82f6;
+    }
+    100% {
+        transform: scaleX(1.02) rotateY(180deg);
+        background-color: #1a1a1a;
+    }
+}
