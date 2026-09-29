@@ -5,7 +5,7 @@ const portfolioBgContent = document.querySelector(".portfolio-bg .portfolio-cont
 // ─────────────────────────────────────────────────────────────────────────────
 // CONFIGURAÇÕES GERAIS
 // ─────────────────────────────────────────────────────────────────────────────
-const TOTAL_COLUMNS = 7; // Quantidade de colunas na tela
+const TOTAL_COLUMNS = 6; // Quantidade de colunas na tela
 
 // Timings da animação (em ms)
 const curtainStepDelay  = 110;  // atraso da cascata da cortina entre colunas
