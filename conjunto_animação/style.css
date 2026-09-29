@@ -25,6 +25,7 @@ body {
    - O conteúdo começa invisível (opacity: 0) para não vazar no 3D
    - Torna-se visível ao fim da animação do flip
 ───────────────────────────────────────────────────────────────── */
+
 .portfolio-bg {
   position: fixed;
   inset: 0;
@@ -93,18 +94,17 @@ body {
   height: 100vh;
   display: flex;
   flex-direction: row;
-  perspective: 1400px;
   z-index: 10;
   pointer-events: none;
 }
 
-/* Wrapper de cada coluna */
+/* Wrapper de cada coluna com perspectiva individual (estilo persianas uniforme) */
 .col-wrapper {
   flex: 1;
   height: 100%;
   position: relative;
-  overflow: hidden;
-  margin-right: -0.5px; /* Evita frestas de subpixel */
+  perspective: 1200px;
+  margin-right: -1px; /* Evita frestas de subpixel */
 }
 
 /* ─────────────────────────────────────────────────────────────────

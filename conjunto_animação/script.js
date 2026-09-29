@@ -8,13 +8,13 @@ const portfolioBgContent = document.querySelector(".portfolio-bg .portfolio-cont
 const TOTAL_COLUMNS = 7; // Quantidade de colunas na tela
 
 // Timings da animação (em ms)
-const curtainStepDelay  = 120;  // atraso da cascata da cortina entre colunas
+const curtainStepDelay  = 110;  // atraso da cascata da cortina entre colunas
 const curtainDuration   = 600;  // tempo de abertura (metade sobe / metade desce)
-const pauseAfterCurtain = 250;  // pausa antes de iniciar o primeiro flip
+const pauseAfterCurtain = 200;  // pausa antes de iniciar o efeito persianas
 
-// Flip sequencial: a próxima coluna só vira quando a anterior estiver 100% virada
-const flipDuration      = 600;  // tempo de giro de cada coluna (0deg -> -180deg)
-const flipStepDelay     = 600;  // delay exatamente igual à duração para sequência 1 a 1
+// Efeito Persianas: rotação horizontal no eixo Y em cascata fluida
+const flipDuration      = 800;  // tempo de giro de cada coluna
+const flipStepDelay     = 120;  // intervalo entre o início de cada coluna (onda de persiana)
 
 // HTML do conteúdo revelado em cada fatia
 const portfolioContentHTML = `
@@ -57,12 +57,12 @@ function runSequence() {
     // FACE A: Cor creme escuro (visível inicialmente após a cortina abrir)
     const faceA = document.createElement("div");
     faceA.classList.add("card-face", "face-a");
-    faceA.style.transform = "rotateX(0deg)";
+    faceA.style.transform = "rotateY(0deg)";
 
     // FACE B: Contém a fatia horizontal precisa do portfólio no espaço 3D
     const faceB = document.createElement("div");
     faceB.classList.add("card-face", "face-b");
-    faceB.style.transform = "rotateX(-180deg)";
+    faceB.style.transform = "rotateY(180deg)";
 
     const slice = document.createElement("div");
     slice.classList.add("portfolio-slice");
@@ -120,25 +120,25 @@ function runSequence() {
       }
     );
 
-    // ── 5. Animação do Flip 3D Vertical (Descendo de Cima para Baixo no Eixo X) ──
+    // ── 5. Animação do Flip 3D Estilo Persianas (Giro no Eixo Y em Cascata) ──
     const flipDelay = flipStart + (i * flipStepDelay);
 
     card.animate(
       [
-        { transform: "rotateX(0deg)" },
-        { transform: "rotateX(-180deg)" }
+        { transform: "rotateY(0deg)" },
+        { transform: "rotateY(180deg)" }
       ],
       {
         duration: flipDuration,
         delay: flipDelay,
         fill: "forwards",
-        easing: "cubic-bezier(0.4, 0, 0.2, 1)"
+        easing: "cubic-bezier(0.25, 1, 0.5, 1)"
       }
     );
   }
 
   // Ao finalizar o último flip, exibe o fundo principal de forma transparente e contínua
-  const totalDuration = flipStart + (TOTAL_COLUMNS * flipStepDelay);
+  const totalDuration = flipStart + ((TOTAL_COLUMNS - 1) * flipStepDelay) + flipDuration;
   animationTimer = setTimeout(() => {
     if (portfolioBgContent) {
       portfolioBgContent.classList.add("visible");
